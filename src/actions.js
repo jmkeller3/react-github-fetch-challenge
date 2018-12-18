@@ -15,4 +15,14 @@ export const fetchReposError = error => ({
     error
 });
 
-export const fetchRepos = null; // Write me!
+export const fetchRepos = () => dispatch => {
+    dispatch(fetchReposRequeset());
+    fetch(`Something`)
+        .then((res) => {
+        if (!res.ok) {
+            return Promise.reject(res.sendTextStatus)
+        }
+        return res.json()
+    }).then(repos => dispatch(fetchReposSuccess(repos)))
+    .catch(err => dispatch(fetchReposError(err)))
+}
